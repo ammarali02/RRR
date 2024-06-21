@@ -2,15 +2,14 @@ import os
 import random
 from collections import defaultdict
 import shutil
+import pandas as pd
+from PIL import Image
 
 '''
 This is a script used to generate percentage-based sample data to preserve relative counts. 
 IMPORTANT: Use a base path with flat directory (each folder is one feature, "featured-data" does this already)
 Everytime this script is run, 'sample-features' folder will get wiped and recreated with new data. 
-- Aditya Ramesh
 '''
-
-
 def random_sample(base_path, sample_proportion):
     if os.path.isdir('sample-data'):
         shutil.rmtree('sample-data')
@@ -38,6 +37,4 @@ def random_sample(base_path, sample_proportion):
         for img_path in sampled_images[category]:
             destination_path = os.path.join('sample-data', category)
             shutil.copy(img_path, destination_path)
-
-    
 

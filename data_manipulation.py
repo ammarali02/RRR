@@ -9,12 +9,12 @@ from PIL import Image, ImageStat
 '''
 This is a script used to generate percentage-based sample data to preserve relative counts. 
 Use a base path with flat directory (each folder is one feature, "featured-data" does this already).
-Everytime this script is run, 'sample-features' folder will get wiped and recreated with new data. 
+Everytime this script is run, write-path folder will get wiped and recreated with new data. 
 '''
-def random_sample(base_path, sample_proportion):
-    if os.path.isdir('sample-data'):
-        shutil.rmtree('sample-data')
-    os.makedirs('sample-data')
+def random_sample(base_path, write_path, sample_proportion):
+    if os.path.isdir(write_path):
+        shutil.rmtree(write_path)
+    os.makedirs(write_path)
 
     image_data = defaultdict(list)
 
@@ -30,13 +30,13 @@ def random_sample(base_path, sample_proportion):
 
 
     for category, images in image_data.items():
-        category_subdir = os.path.join('sample-data', category)
+        category_subdir = os.path.join(write_path, category)
         os.makedirs(category_subdir)
         sample_size = sample_sizes[category]
         sampled_images[category] = random.sample(images, sample_size)
 
         for img_path in sampled_images[category]:
-            destination_path = os.path.join('sample-data', category)
+            destination_path = os.path.join(write_path, category)
             shutil.copy(img_path, destination_path)
 
 
